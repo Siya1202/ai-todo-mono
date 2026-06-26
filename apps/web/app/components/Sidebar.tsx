@@ -94,38 +94,40 @@ export default function Sidebar() {
             VIEWS
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <Link
-              href="/dashboard"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '8px 12px',
-                borderRadius: 'var(--radius-md)',
-                textDecoration: 'none',
-                background: isDashboard ? 'rgba(220, 38, 38, 0.08)' : 'transparent',
-                color: isDashboard ? '#dc2626' : 'var(--ink-muted)',
-                fontWeight: isDashboard ? 700 : 600,
-                fontSize: 'var(--text-sm)',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ fontSize: '18px' }}>⌘</span>
-                Dashboard
-              </div>
-              <span
+            <DoodleBox seed={10}>
+              <Link
+                href="/dashboard"
                 style={{
-                  background: isDashboard ? 'rgba(0,0,0,0.06)' : 'transparent',
-                  padding: '2px 8px',
-                  borderRadius: '12px',
-                  fontSize: '11px',
-                  fontWeight: 700,
-                  color: 'var(--ink-muted)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '8px 12px',
+                  borderRadius: 'var(--radius-md)',
+                  textDecoration: 'none',
+                  background: isDashboard ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                  color: isDashboard ? 'var(--ink)' : 'var(--ink-muted)',
+                  fontWeight: isDashboard ? 700 : 600,
+                  fontSize: 'var(--text-sm)',
                 }}
               >
-                {lists.length}
-              </span>
-            </Link>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ fontSize: '18px' }}>⌘</span>
+                  Dashboard
+                </div>
+                <span
+                  style={{
+                    background: isDashboard ? 'rgba(0,0,0,0.08)' : 'rgba(0,0,0,0.04)',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    color: isDashboard ? 'var(--ink)' : 'var(--ink-muted)',
+                  }}
+                >
+                  {lists.length}
+                </span>
+              </Link>
+            </DoodleBox>
           </div>
         </div>
 
@@ -152,73 +154,73 @@ export default function Sidebar() {
               const { done, total, pct } = getProgress(list);
               const isActive = pathname === `/list/${list.id}`;
               return (
-                <Link
-                  key={list.id}
-                  href={`/list/${list.id}`}
-                  style={{
-                    display: 'block',
-                    padding: '10px 12px',
-                    borderRadius: 'var(--radius-md)',
-                    textDecoration: 'none',
-                    background: isActive ? 'rgba(220, 38, 38, 0.07)' : 'rgba(255,255,255,0.5)',
-                    border: `1px solid ${isActive ? 'rgba(220,38,38,0.2)' : 'rgba(0,0,0,0.08)'}`,
-                    transition: 'background 0.15s',
-                  }}
-                >
-                  {/* Goal text */}
-                  <p
-                    style={
-                      {
-                        fontSize: 'var(--text-xs)',
-                        fontWeight: 700,
-                        color: isActive ? '#dc2626' : 'var(--ink)',
-                        marginBottom: '8px',
-                        overflow: 'hidden',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical',
-                        lineHeight: 1.4,
-                      } as React.CSSProperties
-                    }
+                <DoodleBox key={list.id} seed={idx + 50}>
+                  <Link
+                    href={`/list/${list.id}`}
+                    style={{
+                      display: 'block',
+                      padding: '10px 12px',
+                      borderRadius: 'var(--radius-md)',
+                      textDecoration: 'none',
+                      background: isActive ? 'var(--paper)' : 'rgba(255,255,255,0.5)',
+                      transition: 'all 0.15s',
+                    }}
                   >
-                    {list.goal}
-                  </p>
-
-                  {/* Progress bar */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div
-                      style={{
-                        flex: 1,
-                        height: '4px',
-                        background: 'rgba(0,0,0,0.08)',
-                        borderRadius: '2px',
-                        overflow: 'hidden',
-                      }}
+                    {/* Goal text */}
+                    <p
+                      style={
+                        {
+                          fontSize: 'var(--text-sm)',
+                          fontWeight: 700,
+                          color: 'var(--ink)',
+                          marginBottom: '8px',
+                          overflow: 'hidden',
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical',
+                          lineHeight: 1.4,
+                        } as React.CSSProperties
+                      }
                     >
+                      {list.goal}
+                    </p>
+
+                    {/* Progress bar */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <div
                         style={{
-                          height: '100%',
-                          width: `${pct}%`,
-                          background: pct === 100 ? '#10b981' : '#dc2626',
-                          borderRadius: '2px',
-                          transition: 'width 0.3s ease',
+                          flex: 1,
+                          height: '6px',
+                          background: '#e0ddd6',
+                          borderRadius: '3px',
+                          overflow: 'hidden',
                         }}
-                      />
+                      >
+                        <div
+                          style={{
+                            height: '100%',
+                            width: `${pct}%`,
+                            background: 'var(--ink)',
+                            borderRadius: '3px',
+                            transition: 'width 0.3s ease',
+                          }}
+                        />
+                      </div>
+                      <span
+                        style={{
+                          fontSize: '10px',
+                          fontWeight: 700,
+                          color: 'var(--ink-muted)',
+                          whiteSpace: 'nowrap',
+                          minWidth: '36px',
+                          textAlign: 'right',
+                        }}
+                      >
+                        {done}/{total}
+                      </span>
                     </div>
-                    <span
-                      style={{
-                        fontSize: '10px',
-                        fontWeight: 700,
-                        color: 'var(--ink-faint)',
-                        whiteSpace: 'nowrap',
-                        minWidth: '36px',
-                        textAlign: 'right',
-                      }}
-                    >
-                      {done}/{total}
-                    </span>
-                  </div>
-                </Link>
+                  </Link>
+                </DoodleBox>
               );
             })}
           </div>
@@ -249,7 +251,7 @@ export default function Sidebar() {
                     width: '8px',
                     height: '8px',
                     borderRadius: '50%',
-                    background: '#9ca3af',
+                    background: 'var(--ink-faint)',
                   }}
                 />
                 Pending
@@ -273,7 +275,7 @@ export default function Sidebar() {
                     width: '8px',
                     height: '8px',
                     borderRadius: '50%',
-                    background: '#10b981',
+                    background: 'var(--ink)',
                   }}
                 />
                 Completed
